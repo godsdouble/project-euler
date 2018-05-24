@@ -1,25 +1,30 @@
-def func():
-    n = 600851475143
-    i = 2
-    while i * i < n:
-         while n % i == 0:
-            n = n / i
-         i = i + 1
-    print(n)
+import math
 
-func()
+n = 600851475143  # Find largest prime factor of this number
+limit = int(math.sqrt(n)) + 1
+prime_factors = []
 
 
-primeFactors = []
+# Using Sieve of Eratosthenes
+def generate_primes(up_to_this_num):
+    limit = up_to_this_num + 1
+    not_prime = set()
 
-def findPrimeFactors(n, basePrime):
-    while basePrime ** 2 < n:
-        if n % basePrime == 0: #Result not always a prime factor, doesn't matter.
-            n = n / basePrime
-            primeFactors.append(basePrime)
-            primeFactors.append(n)
-        else:
-            basePrime += 1
+    for i in range(2, limit):
+        if i in not_prime:
+            continue
 
-findPrimeFactors(600851475143, 2)
-print (primeFactors) 
+        for j in range(i * 2, limit, i):
+            not_prime.add(j)
+
+        yield i
+
+
+for prime in generate_primes(limit):
+    if n % prime == 0:
+        prime_factors.append(prime)
+
+print(prime_factors)
+print(max(prime_factors))
+
+# output is 6857
