@@ -1,25 +1,32 @@
-def fib(limit):
-    a, b = 1, 2
-    fib_seq = [1]
-    while b <= limit:
-        fib_seq.append(b)
-        a, b = b, a + b
-    return fib_seq
+# Re-did thise problem to practice Classes and Generators
 
 
-def even_list(lst):
-    even = [i for i in lst if i % 2 == 0]
-    return even
+class Fibonacci():
+
+    def __init__(self, a=1, b=1):
+        self.a = a
+        self.b = b
+
+    def nth_term(self, n=1):
+        for i in range(n):
+            yield self.a
+            self.a, self.b = self.b, self.a + self.b
 
 
-def sum_of(lst):
-    sum = 0
-    for x in lst:
-        sum += x
-    return sum
+limit = 4000000  # Last Fib value must not exceed this limit
+seq = Fibonacci(1, 2)
+even_seq = []
 
+# Generator will not execute 4000000 times as the running sum will reach
+# it way before.
+for number in seq.nth_term(limit):
+    if number > limit:  # Will break out when limit is exceeded
+        break
+    elif number % 2 == 0:  # Store only even numbers
+        even_seq.append(number)
+    else:
+        pass
 
-fib_sequence = fib(4000000)
-fib_even = even_list(fib_sequence)
-sum_is = sum_of(fib_even)
-print(sum_is)
+print(sum(even_seq))
+
+# outputs 4613732
