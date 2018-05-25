@@ -1,23 +1,21 @@
-primes = [2, 3]
-
-def is_prime(num):
-    if num<2:
-        return False
-    elif num==2:
-        return True
-    else:
-        for i in range(3,num,2):
-            if num%i==0:
-                return False
-            else:
-                return True
+import math
 
 
-while len(primes)<=100:
-    for i in range(3,10000,2):
-        if is_prime(i):
-            primes.append(i)
+def generate_prime(nth_prime):
+    # using Prime Number Theorem (PNT) and overestimating by factor of 2
+    estimated_num_of_prime = int(2 * nth_prime * math.log(nth_prime))
+    prime = [True] * estimated_num_of_prime
+    count = 0
 
-print (primes)
+    for i in range(2, estimated_num_of_prime):
+        if prime[i]:
+            count += 1
+        if count == nth_prime:
+            return i
+        for j in range(i * 2, estimated_num_of_prime, i):
+            prime[j] = False
 
 
+print(generate_prime(10001))
+
+# outputs 104743
