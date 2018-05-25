@@ -1,52 +1,61 @@
-def grid20x20 (digits):
-    digitcombined=[]
-    grid=[[0]*20 for i in range(20)]
-    for i in range(0,len(digits),2):
-        digitcombined.append(digits[i]+digits[i+1])
-    j=0
-    for x in range (0,20):
-        for y in range (0,20):
-            grid[x][y]=int(digitcombined[j])
-            j+=1
+def grid20x20(digits):
+    digitcombined = []
+    grid = [[0] * 20 for i in range(20)]
+    for i in range(0, len(digits), 2):
+        digitcombined.append(digits[i] + digits[i + 1])
+    j = 0
+    for x in range(0, 20):
+        for y in range(0, 20):
+            grid[x][y] = int(digitcombined[j])
+            j += 1
     return grid
 
-def horizontal (grid):
+
+def horizontal(grid):
     biggest = 0
     for x in range(20):
         for y in range(17):
-            product=grid[x][y]*grid[x][y+1]*grid[x][y+2]*grid[x][y+3]
-            if product>biggest:
-                biggest=product
+            product = grid[x][y] * grid[x][y + 1] * \
+                grid[x][y + 2] * grid[x][y + 3]
+            if product > biggest:
+                biggest = product
     return biggest
 
-def vertical (grid):
+
+def vertical(grid):
     biggest = 0
     for x in range(20):
         for y in range(17):
-            product=grid[y][x]*grid[y+1][x]*grid[y+2][x]*grid[y+3][x]
-            if product>biggest:
-                biggest=product
+            product = grid[y][x] * grid[y + 1][x] * \
+                grid[y + 2][x] * grid[y + 3][x]
+            if product > biggest:
+                biggest = product
     return biggest
 
-def diagonal1 (grid):
-    biggest=0
-    for x in range (17):
+
+def diagonal1(grid):
+    biggest = 0
+    for x in range(17):
         for y in range(17):
-            product=grid[x][y]*grid[x+1][y+1]*grid[x+2][y+2]*grid[x+3][y+3]
-            if product>biggest:
-                biggest=product
+            product = grid[x][y] * grid[x + 1][y + 1] * \
+                grid[x + 2][y + 2] * grid[x + 3][y + 3]
+            if product > biggest:
+                biggest = product
     return biggest
 
-def diagonal2 (grid):
-    biggest=0
-    for x in range (17):
-        for y in range(3,20):
-            product=grid[x][y]*grid[x+1][y-1]*grid[x+2][y-2]*grid[x+3][y-3]
-            if product>biggest:
-                biggest=product
+
+def diagonal2(grid):
+    biggest = 0
+    for x in range(17):
+        for y in range(3, 20):
+            product = grid[x][y] * grid[x + 1][y - 1] * \
+                grid[x + 2][y - 2] * grid[x + 3][y - 3]
+            if product > biggest:
+                biggest = product
     return biggest
 
-long_string ="""
+
+long_string = """
 08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00
 81 49 31 73 55 79 14 29 93 71 40 67 53 88 30 03 49 13 36 65
@@ -68,10 +77,13 @@ long_string ="""
 20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54
 01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48"""
 
-# creating a list with all digits without space, every two digits represents one number
+# creating a list with all digits without space, every two digits
+# represents one number
 strip_string = long_string.replace(" ", "")
 strip_string = strip_string.replace("\n", "")
 list_string = list(strip_string)
-grid=grid20x20(list_string)
-biggest = [horizontal(grid),vertical(grid),diagonal1(grid),diagonal2(grid)]
+grid = grid20x20(list_string)
+biggest = [horizontal(grid), vertical(grid), diagonal1(grid), diagonal2(grid)]
 print(max(biggest))
+
+# outputs 70600674
