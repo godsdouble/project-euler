@@ -22,24 +22,37 @@ month_dict = {
     "december": 31
 }
 
-day = [
-    "monday",
-    "tuesday",
-    "wednesday",
-    "thursday",
-    "friday",
-    "saturday",
-    "sunday"
-]
+day = (
+    None,
+    ("monday", 1),
+    ("tuesday", 2),
+    ("wednesday", 3),
+    ("thursday", 4),
+    ("friday", 5),
+    ("saturday", 6),
+    ("sunday", 7)
+)
 
 twenty_century = [(year, leap_year(year)) for year in range(1900, 2001)]
+first_of_month = day[1]
+tracker = []
 
 for year in twenty_century:
 
-    if twenty_century[year][1]:  # if it is a leap year
+    if year[1]:  # if it is a leap year
         month_dict["february"] = 29
     else:
         month_dict["february"] = 28
 
+    for month in month_dict:
+        if first_of_month == day[7]:
+            tracker.append((year, month))
+        r = (month_dict[month] + 1) % 7
+        if r != 0:
+            index = 7 - r + first_of_month[1]
+            if index > 7:
+                index -= 7
+            first_of_month = day[index]
 
-
+print(tracker)
+print(len(tracker))
