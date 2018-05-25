@@ -47,3 +47,5 @@ for elem in try_index:
         biggest_product = current_product
 
 print(start, ":", biggest_product)
+
+# outputs: 23514624000
