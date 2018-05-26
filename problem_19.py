@@ -45,14 +45,15 @@ for year in twenty_century:
         month_dict["february"] = 28
 
     for month in month_dict:
-        if first_of_month == day[7]:
+        if first_of_month == day[7] and year[0] != 1900:
             tracker.append((year, month))
-        r = (month_dict[month] + 1) % 7
+        r = month_dict[month] % 7
         if r != 0:
-            index = 7 - r + first_of_month[1]
+            index = r + first_of_month[1]
             if index > 7:
                 index -= 7
             first_of_month = day[index]
 
-print(tracker)
 print(len(tracker))
+
+# outputs 171
